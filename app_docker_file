@@ -1,0 +1,24 @@
+FROM nvcr.io/nvidia/pytorch:24.06-py3
+
+RUN python -m pip install --upgrade pip
+
+COPY ./Scalable_Image_Inference_API /Scalable_Image_Inference_API
+WORKDIR /Scalable_Image_Inference_API
+
+RUN pip install --no-cache-dir -r requirements.txt \
+    && pip install ultralytics==8.2.95 \
+    && pip uninstall -y opencv-python \
+    && pip install opencv-python==4.7.0.72 python-multipart fastapi uvicorn
+
+RUN chmod +x /Scalable_Image_Inference_API/api.py
+RUN chmod +x /Scalable_Image_Inference_API/RQ_Worker.py
+
+ENV PYTHONPATH=/Scalable_Image_Inference_API
+ENV CUDA_LAUNCH_BLOCKING=1
+
+EXPOSE 8000
+
+RUN chmod +x ./start_main.sh ./start_worker.sh ./entrypoint.sh
+
+# Use ENTRYPOINT instead of CMD
+ENTRYPOINT ["./entrypoint.sh"]
