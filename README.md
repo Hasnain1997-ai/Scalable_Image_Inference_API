@@ -55,19 +55,19 @@ You have two options for installation: using Docker (recommended) or manual inst
 
 4. Build and run the Docker containers. **If you have a GPU on the system and CUDA is configured**:
    ```
-   docker compose up
+   sudo docker compose up
 
    or 
 
-   docker-compose up
+   sudo docker-compose up
    ```
    If NO-GPU in the system or not configured the use the below command to Build and Run the Docker Containers
    ```
-   docker compose -f docker-compose_CPU.yml up
+   sudo docker compose -f docker-compose_CPU.yml up
 
    or
 
-   docker-compose -f docker-compose_CPU.yml up
+   sudo docker-compose -f docker-compose_CPU.yml up
    
    ```
 
