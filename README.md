@@ -53,11 +53,27 @@ You have two options for installation: using Docker (recommended) or manual inst
    sudo systemctl stop redis-server
    ```
 
-4. Build and run the Docker containers:
+4. Build and run the Docker containers. **If you have a GPU on the system and CUDA is configured**:
    ```
-   docker-compose up --build
+   docker compose up
+
+   or 
+
+   docker-compose up
+   ```
+   If NO-GPU in the system or not configured the use the below command to Build and Run the Docker Containers
+   ```
+   docker compose -f docker-compose_CPU.yml up
+
+   or
+
+   docker-compose -f docker-compose_CPU.yml up
+   
    ```
 
+
+   - **BE-PATIENT** as it will take some time initially, becuase the base images will be downloaded(which of pytorch and its downloading is time consuming) and all the necessary requirements will be installed."
+   
 This will set up the entire application, including the API server, Redis, and the worker.
 
 ### Option 2: Manual Installation
