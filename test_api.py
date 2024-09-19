@@ -6,7 +6,7 @@ BASE_URL = "http://localhost:8000"
 
 def test_valid_image():
     try:
-        image_path = "test_image.jpg"  # Path to your test image
+        image_path = "test_files/test_image.jpg"  # Path to your test image
         
         if not os.path.exists(image_path):
             raise FileNotFoundError(f"Error: {image_path} not found.")
@@ -37,23 +37,29 @@ def test_valid_image():
         print(f"Error occurred: {str(e)}")
 
 def test_invalid_file():
+    file_path = "test_files/test_file.txt"
+    
     try:
-        with open("test_file.txt", "w") as text_file:
-            text_file.write("This is not an image file")
+        if not os.path.exists(file_path):
+            os.makedirs(os.path.dirname(file_path), exist_ok=True)
+            
+            with open(file_path, "w") as file:
+                file.write("Test TXT file")
         
-        with open("test_file.txt", "rb") as text_file:
-            files = {"file": ("test_file.txt", text_file, "text/plain")}
+        with open(file_path, "rb") as text_file:
+            files = {"file": (file_path, text_file, "text/plain")}
             response = requests.post(f"{BASE_URL}/detect_objects", files=files)
         
         assert response.status_code == 400, f"Expected status code 400, but got {response.status_code}"
         print("Invalid file test passed")
+
+    except FileNotFoundError as e:
+        print(f"File Not Found Error: {str(e)}")
     except AssertionError as e:
         print(f"Assertion Error: {str(e)}")
     except Exception as e:
         print(f"Error occurred: {str(e)}")
-    finally:
-        if os.path.exists("test_file.txt"):
-            os.remove("test_file.txt")
+
 
 if __name__ == "__main__":
     test_valid_image()

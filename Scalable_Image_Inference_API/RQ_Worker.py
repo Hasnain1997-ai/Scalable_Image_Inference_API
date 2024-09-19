@@ -1,4 +1,3 @@
-# worker.py
 import redis
 from rq import Worker, Queue, Connection
 import multiprocessing

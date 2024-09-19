@@ -2,10 +2,9 @@
 
 # Configuration
 API_URL="http://localhost:8000"
-IMAGE_PATH="/media/ai-dev/7ddb5cde-9928-4de6-abaa-cbbf9343b4df/home/hasnain-dev/work-space_HDD/Scalable_Image_Inference_API/test_image.jpg"
+IMAGE_PATH="test_files/test_image.jpg"
 NUM_REQUESTS=10
 
-# Function to send a request and store the job ID
 send_request() {
     response=$(curl -s -X POST "${API_URL}/detect_objects" \
          -H "accept: application/json" \

@@ -7,7 +7,7 @@ from ultralytics import YOLO
 device = "cuda" if torch.cuda.is_available() else "cpu"
 print(f"Using device: {device}")
 
-# Load pre-trained YOLOv8 model
+# Load the YOLO-V8 Detector Pretrained model
 model = YOLO("yolov8n.pt")
 model.to(device)
 
