@@ -1,5 +1,3 @@
-version: "2.3"
-
 services:
   app:
     image: image_api_scalable:v1
@@ -7,7 +5,13 @@ services:
       context: .
       dockerfile: app_docker_file
     container_name: image_api_scalable_container
-    runtime: nvidia
+    deploy:
+      resources:
+        reservations:
+          devices:
+            - driver: nvidia
+              count: all
+              capabilities: [gpu]
     ports:
       - "8000:8000"
     network_mode: "host"
